@@ -29,6 +29,8 @@ textArea.addEventListener('keyup', isThereAnyComment);
 function addCommentsInlist() {
     if (!isNullOrEmpty(textArea.value)) {
         addComment(textArea.value);
+    } else {
+        btnSubmit.classList.add("disabled");
     }
 
     textArea.value = "";
@@ -44,9 +46,18 @@ btnSubmit.onclick = addCommentsInlist;
 let btnDelete = document.getElementById("btnDelete");
 let txtConfirm = document.getElementById("txtConfirm");
 
-txtConfirm.addEventListener('keyup', function () {
+
+function isDeleteAllowed() {
     let value = txtConfirm.value;
     if (value == "REPOSITORY") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+txtConfirm.addEventListener('keyup', function () {
+    if (isDeleteAllowed()) {
         btnDelete.classList.remove("disabled");
     } else {
         btnDelete.classList.add("disabled");
@@ -54,9 +65,13 @@ txtConfirm.addEventListener('keyup', function () {
 });
 
 btnDelete.onclick = function () {
-    alert("Thanks for confirming. File is going to be deleted soon.");
-    txtConfirm.value = "";
+    if (isDeleteAllowed()) {
+        alert("Thanks for confirming. File is going to be deleted soon.");
+        txtConfirm.value = "";
+
+    }
     btnDelete.classList.add("disabled");
+
 }
 
 function initiateComments() {
