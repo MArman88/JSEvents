@@ -15,13 +15,23 @@ function addComment(comment) {
     div.appendChild(p);
 }
 
+function isThereAnyComment() {
+    if (!isNullOrEmpty(textArea.value)) {
+        btnSubmit.classList.remove("disabled");
+    } else {
+        btnSubmit.classList.add("disabled");
+    }
+}
+
+let textArea = document.getElementById("textarea");
+textArea.addEventListener('keyup', isThereAnyComment);
+
 function addCommentsInlist() {
-    let text = document.getElementById("textarea");
-    if (!isNullOrEmpty(text.value)) {
-        addComment(text.value);
+    if (!isNullOrEmpty(textArea.value)) {
+        addComment(textArea.value);
     }
 
-    text.value = "";
+    textArea.value = "";
 }
 
 function isNullOrEmpty(value) {
